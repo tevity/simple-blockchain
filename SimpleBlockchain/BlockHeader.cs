@@ -7,7 +7,7 @@ namespace SimpleBlockchain
     {
         public BlockHeader(
             BlockHeaderCreationMetadata creationMetadata,
-            byte[] hash)
+            IReadOnlyCollection<byte> hash)
         {
             BlockNumber = creationMetadata.BlockNumber;
             Created = creationMetadata.Created;
