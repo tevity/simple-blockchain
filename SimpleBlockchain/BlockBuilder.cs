@@ -11,16 +11,15 @@
             _hashCalculator = hashCalculator;
         }
 
-        public IBlock BuildBlock<TTransaction>(TTransaction transaction, IBlock previousBlock) where TTransaction : ITransaction
+        public IBlock BuildBlock<TTransaction>(BlockHeader previousBlock, TTransaction transaction) where TTransaction : IHashable
         {
-            var creationMetadata = new BlockCreationMetadata
-            {
-                BlockNumber = previousBlock.BlockNumber + 1,
-                Created = _dateTimeProvider.Now,
-                PreviousBlockHash = previousBlock.Hash,
-            };
+            var creationMetadata = new BlockHeaderCreationMetadata(
+                previousBlock.BlockNumber + 1,
+                _dateTimeProvider.Now,
+                previousBlock.PreviousBlockHash);
             var hash = _hashCalculator.CalculateHash(creationMetadata, transaction);
-            var newBlock = new Block<TTransaction>(transaction, creationMetadata, hash);
+            var header = new BlockHeader(creationMetadata, hash);
+            var newBlock = new Block(header, transaction);
             previousBlock.NextBlock = newBlock;
             return newBlock;
         }

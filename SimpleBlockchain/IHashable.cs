@@ -2,7 +2,7 @@
 
 namespace SimpleBlockchain
 {
-    public interface ITransaction
+    public interface IHashable
     {
         IReadOnlyCollection<byte> GetHashBytes();
     }

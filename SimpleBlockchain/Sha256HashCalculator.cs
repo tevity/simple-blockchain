@@ -6,7 +6,7 @@ namespace SimpleBlockchain
 {
     public class Sha256HashCalculator : IHashCalculator
     {
-        public IReadOnlyCollection<byte> CalculateHash(BlockCreationMetadata blockHeader, ITransaction transaction)
+        public IReadOnlyCollection<byte> CalculateHash(IHashable blockHeader, IHashable transaction)
         {
             using var sha256 = SHA256.Create();
             var metadataHash = blockHeader.GetHashBytes();

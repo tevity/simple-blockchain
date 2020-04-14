@@ -4,6 +4,6 @@ namespace SimpleBlockchain
 {
     public interface IHashCalculator
     {
-        IReadOnlyCollection<byte> CalculateHash(BlockCreationMetadata blockHeader, ITransaction transaction);
+        IReadOnlyCollection<byte> CalculateHash(IHashable blockHeader, IHashable transaction);
     }
 }
