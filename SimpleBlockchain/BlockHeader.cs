@@ -20,5 +20,8 @@ namespace SimpleBlockchain
         public DateTimeOffset Created { get; }
         public IReadOnlyCollection<byte> PreviousBlockHash { get; }
         public IBlock NextBlock { get; set; }
+
+        public static readonly BlockHeader InitialisationHeader = new BlockHeader(
+            new BlockHeaderCreationMetadata(-1, DateTimeOffset.MinValue, new byte[0]), new byte[0]);
     }
 }
