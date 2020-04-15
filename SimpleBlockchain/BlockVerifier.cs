@@ -1,4 +1,6 @@
-﻿namespace SimpleBlockchain
+﻿using System.Linq;
+
+namespace SimpleBlockchain
 {
     public class BlockVerifier
     {
@@ -13,7 +15,7 @@
         {
             var creationMetadata = new HashableBlockHeader(block.Header, previousBlock.Header);
             var calculatedHash = _hashCalculator.CalculateHash(creationMetadata, block.Transaction);
-            return Equals(calculatedHash, block.Header.Hash);
+            return calculatedHash.SequenceEqual(block.Header.Hash);
         }
     }
 }
