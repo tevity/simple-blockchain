@@ -8,11 +8,12 @@ namespace SimpleBlockchain
     {
         public IReadOnlyCollection<byte> CalculateHash(IHashable blockHeader, IHashable transaction)
         {
-            using var sha256 = SHA256.Create();
             var metadataHash = blockHeader.GetHashBytes();
             var transactionHash = transaction.GetHashBytes();
-            var allHashBytes = metadataHash.Concat(transactionHash);
-            return sha256.ComputeHash(allHashBytes.ToArray());
+            var allHashBytes = metadataHash.Concat(transactionHash).ToArray();
+
+            using var sha256 = SHA256.Create();
+            return sha256.ComputeHash(allHashBytes);
         }
     }
 }
