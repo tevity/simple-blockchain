@@ -39,5 +39,36 @@ namespace SimpleBlockchain
                 PreviousBlockHash.ToArray()
             }.SelectMany(x => x).ToArray();
         }
+
+        #region Equality
+
+        protected bool Equals(HashableBlockHeader other)
+        {
+            return BlockNumber == other.BlockNumber 
+                   && Created.Equals(other.Created) 
+                   && PreviousBlockHash.SequenceEqual(other.PreviousBlockHash);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is HashableBlockHeader other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(BlockNumber, Created, PreviousBlockHash);
+        }
+
+        #endregion
     }
 }
