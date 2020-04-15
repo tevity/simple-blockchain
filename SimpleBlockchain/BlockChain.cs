@@ -6,11 +6,13 @@ namespace SimpleBlockchain
     public class BlockChain : IBlockChain
     {
         private readonly BlockBuilder _blockBuilder;
+        private readonly BlockVerifier _verifier;
         private readonly List<IBlock> _blocks;
 
-        public BlockChain(BlockBuilder blockBuilder, List<IBlock> blocks = null)
+        public BlockChain(BlockBuilder blockBuilder, BlockVerifier verifier, List<IBlock> blocks = null)
         {
             _blockBuilder = blockBuilder;
+            _verifier = verifier;
             _blocks = blocks ?? new List<IBlock>();
         }
 
@@ -20,6 +22,19 @@ namespace SimpleBlockchain
             var previousBlockHeader = previousBlock?.Header ?? BlockHeader.InitialisationHeader;
             var block = _blockBuilder.BuildBlock(previousBlockHeader, transaction);
             _blocks.Add(block);
+        }
+
+        public bool Validate()
+        {
+            IBlock previousBlock = null;
+            var valid = true;
+            foreach (var block in _blocks)
+            {
+                valid &= _verifier.IsValid(block, previousBlock);
+                previousBlock = block;
+            }
+
+            return valid;
         }
     }
 }

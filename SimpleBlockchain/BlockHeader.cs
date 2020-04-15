@@ -6,7 +6,7 @@ namespace SimpleBlockchain
     public class BlockHeader
     {
         public BlockHeader(
-            BlockHeaderCreationMetadata creationMetadata,
+            HashableBlockHeader creationMetadata,
             IReadOnlyCollection<byte> hash)
         {
             BlockNumber = creationMetadata.BlockNumber;
@@ -22,6 +22,6 @@ namespace SimpleBlockchain
         public IBlock NextBlock { get; set; }
 
         public static readonly BlockHeader InitialisationHeader = new BlockHeader(
-            new BlockHeaderCreationMetadata(-1, DateTimeOffset.MinValue, new byte[0]), new byte[0]);
+            new HashableBlockHeader(-1, DateTimeOffset.MinValue, new byte[0]), new byte[0]);
     }
 }

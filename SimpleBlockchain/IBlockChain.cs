@@ -3,5 +3,6 @@
     public interface IBlockChain
     {
         void AddBlock(IHashable transaction);
+        bool Validate();
     }
 }

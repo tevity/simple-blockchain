@@ -13,7 +13,7 @@
 
         public IBlock BuildBlock<TTransaction>(BlockHeader previousBlock, TTransaction transaction) where TTransaction : IHashable
         {
-            var creationMetadata = new BlockHeaderCreationMetadata(
+            var creationMetadata = new HashableBlockHeader(
                 previousBlock.BlockNumber + 1,
                 _dateTimeProvider.Now,
                 previousBlock.PreviousBlockHash);

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace SimpleBlockchain
 {
-    public class BlockHeaderCreationMetadata : IHashable
+    public class HashableBlockHeader : IHashable
     {
-        public BlockHeaderCreationMetadata(
+        public HashableBlockHeader(
             int blockNumber, 
             DateTimeOffset created, 
             IReadOnlyCollection<byte> previousBlockHash)
@@ -15,6 +15,13 @@ namespace SimpleBlockchain
             BlockNumber = blockNumber;
             Created = created;
             PreviousBlockHash = previousBlockHash;
+        }
+
+        public HashableBlockHeader(BlockHeader blockHeader, BlockHeader previousBlockHeader)
+        {
+            BlockNumber = blockHeader.BlockNumber;
+            Created = blockHeader.Created;
+            PreviousBlockHash = previousBlockHeader.Hash;
         }
 
         public int BlockNumber { get; }
