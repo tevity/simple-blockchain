@@ -147,6 +147,19 @@ namespace SimpleBlockchain.Tests
         }
 
         [Fact]
+        public void BuildBlock_GivenAnyPreviousBlock_PreviousBlockHasCreatedBlockAsNextBlock()
+        {
+            var target = CreateTarget();
+
+            var metadata = new HashableBlockHeader(0, new DateTimeOffset(), new byte[0]);
+            var previousBlockHeader = new BlockHeader(metadata, new byte[0]);
+            var transaction = Substitute.For<IHashable>();
+            var createdBlock = target.BuildBlock(previousBlockHeader, transaction);
+
+            previousBlockHeader.NextBlock.ShouldBe(createdBlock);
+        }
+
+        [Fact]
         public void BuildBlock_HashCalculator_ShouldBeGivenNewHashableBlockHeader()
         {
             var hashCalculator = Substitute.For<IHashCalculator>();

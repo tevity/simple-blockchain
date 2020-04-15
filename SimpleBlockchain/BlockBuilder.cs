@@ -19,7 +19,9 @@ namespace SimpleBlockchain
                 previousBlock.BlockNumber + 1,
                 _dateTimeProvider.Now,
                 previousBlock.Hash);
-            return CreateBlock(transaction, creationMetadata);
+            var newBlock = CreateBlock(transaction, creationMetadata);
+            previousBlock.NextBlock = newBlock;
+            return newBlock;
         }
 
         public IBlock BuildGenesisBlock<TTransaction>(TTransaction transaction) where TTransaction : IHashable
